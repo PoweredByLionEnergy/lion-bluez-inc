@@ -826,7 +826,7 @@ static void binc_internal_descriptor_method_call(GDBusConnection *conn,
 
         const char *result = NULL;
         if (application->on_desc_read != NULL) {
-            result = application->on_desc_read(localDescriptor->application, options->device,
+            result = application->on_desc_read(localDescriptor->application, options->device, options->mtu,
                                                localDescriptor->service_uuid,
                                                localDescriptor->char_uuid, localDescriptor->uuid);
         }
@@ -867,6 +867,7 @@ static void binc_internal_descriptor_method_call(GDBusConnection *conn,
         if (application->on_desc_write != NULL) {
             result = application->on_desc_write(localDescriptor->application,
                                                 options->device,
+                                                options->mtu,
                                                 localDescriptor->service_uuid,
                                                 localDescriptor->char_uuid,
                                                 localDescriptor->uuid,
@@ -1020,7 +1021,7 @@ static void binc_internal_characteristic_method_call(GDBusConnection *conn,
         // Allow application to accept/reject the characteristic value before setting it
         const char *result = NULL;
         if (application->on_char_read != NULL) {
-            result = application->on_char_read(characteristic->application, options->device,
+            result = application->on_char_read(characteristic->application, options->device, options->mtu,
                                                characteristic->service_uuid,
                                                characteristic->uuid);
         }
@@ -1060,7 +1061,7 @@ static void binc_internal_characteristic_method_call(GDBusConnection *conn,
         // Allow application to accept/reject the characteristic value before setting it
         const char *result = NULL;
         if (application->on_char_write != NULL) {
-            result = application->on_char_write(characteristic->application, options->device,
+            result = application->on_char_write(characteristic->application, options->device, options->mtu,
                                                 characteristic->service_uuid,
                                                 characteristic->uuid, byteArray);
         }
